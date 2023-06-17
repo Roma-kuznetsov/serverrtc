@@ -7,7 +7,7 @@ interface IRoomParams {
   roomId: string;
   peerId: string;
 }
-// test new repo main
+
 export const roomHandler = (socket: Socket) => {
   const createRoom = () => {
     const roomId = uuidV4();
@@ -19,7 +19,6 @@ export const roomHandler = (socket: Socket) => {
     if (rooms[roomId]) {
       rooms[roomId].push(peerId);
       socket.join(roomId);
-      console.log(1)
       socket.to(roomId).emit("user-joined", { peerId });
       socket.emit("get-users", {
         roomId,
