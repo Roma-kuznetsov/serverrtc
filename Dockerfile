@@ -13,10 +13,11 @@ COPY ./src ./src
 # Install node packages, install serve, build the app, and remove dependencies at the end
 RUN yarn install 
 
-
 COPY . .
 
 EXPOSE 8080
 
 # Start the app using serve command
-CMD ["yarn", "run", "public"]
+# CMD ["yarn", "run", "build" ,"yarn", "run", "public"]
+CMD yarn run build \
+  && yarn run public
