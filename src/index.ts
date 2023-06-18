@@ -24,7 +24,8 @@ const io = new Server(server, {
 
 // socket core
 io.on("connection", (socket) => {
-  console.log("user is connected");
+  const date = new Date();
+  console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} --> USER IS CONNECTED`);
 
   roomHandler(socket);
 
