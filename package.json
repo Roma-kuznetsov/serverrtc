@@ -10,6 +10,7 @@
     "watch": "tsc -w",
     "prestart": "yarn build",
     "start": "nodemon .",
+    "public":"node dist/index.js",
     "dev": "concurrently --kill-others \"yarn watch\" \"yarn start\""
   },
   "devDependencies": {

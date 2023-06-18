@@ -4,16 +4,21 @@ import { Server } from "socket.io";
 import cors from "cors";
 import { roomHandler } from "./room";
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
-const app = express( );
-app.use(cors);
+const app = express();
+app.use(cors({}));
 
 const server = http.createServer(app);
+
+app.get("/test", (req, res) => {
+  const a = req;
+  res.send("Server working!");
+});
+
 const io = new Server(server, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
+    origin: process.env.CORS || "*",
   },
 });
 
