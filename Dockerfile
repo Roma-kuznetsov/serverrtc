@@ -1,23 +1,13 @@
-# Start your image with a node base image
-FROM node:18-alpine
-
-# The /app directory should act as the main application directory
-WORKDIR /server
-
-# Copy the app package and package-lock.json file
-COPY package*.json ./
-
-# Copy local directories to the current local directory of our docker image (/app)
-COPY ./src ./src
-
-# Install node packages, install serve, build the app, and remove dependencies at the end
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY ["package.json", "yarn.lock", ".yarnrc", "./"]
 RUN yarn install 
-
 COPY . .
-
 EXPOSE 8080
+RUN yarn run build 
 
-# Start the app using serve command
-# CMD ["yarn", "run", "build" ,"yarn", "run", "public"]
-CMD yarn run build \
-  && yarn run public
+FROM nginx:alpine
+WORKDIR /usr/share/nginx/html
+RUN rm -rf ./*
+COPY --from=builder /app/build .
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
