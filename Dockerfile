@@ -3,7 +3,7 @@ WORKDIR /app
 COPY ["package.json", "yarn.lock", "./"]
 RUN yarn install 
 COPY . .
-EXPOSE 8080
+RUN ls -lR
 RUN yarn run build 
 
 FROM nginx:alpine
