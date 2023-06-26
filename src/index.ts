@@ -5,14 +5,13 @@ import cors from "cors";
 import { roomHandler } from "./room";
 
 const app = express();
-app.use(cors);
+app.use(cors({}));
 const port = 8080;
 const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
+        origin: process.env.CORS || "*"
     },
 });
 
